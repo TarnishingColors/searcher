@@ -14,11 +14,11 @@ import java.util.Map;
 @Controller
 public class ApplicationController {
     @Autowired
-    private MessageRepo mesageRepo;
+    private MessageRepo messageRepo;
 
     @GetMapping()
     public String greeting(Map<String, Object> model) {
-        Iterable<Message> messages = mesageRepo.findAll();
+        Iterable<Message> messages = messageRepo.findAll();
 
         model.put("messages", messages);
         return "starting";
@@ -30,9 +30,9 @@ public class ApplicationController {
                       Map<String, Object> model){
         Message message = new Message(text, tag);
 
-        mesageRepo.save(message);
+        messageRepo.save(message);
 
-        Iterable<Message> messages = mesageRepo.findAll();
+        Iterable<Message> messages = messageRepo.findAll();
 
         model.put("messages", messages);
 
@@ -44,9 +44,9 @@ public class ApplicationController {
                          Map<String, Object> model){
         Iterable<Message> messages;
         if(filter == null || filter.isEmpty()) {
-            messages = mesageRepo.findAll();
+            messages = messageRepo.findAll();
         } else {
-            messages = mesageRepo.findByTag(filter);
+            messages = messageRepo.findByTag(filter);
         }
 
         model.put("messages", messages);
